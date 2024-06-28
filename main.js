@@ -1,3 +1,5 @@
+const images = document.querySelector(".images");
+
 fetch(
   "https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng&api_key=REPLACE_ME"
 )
@@ -8,16 +10,20 @@ fetch(
     console.log(data);
     for (let i = 0; i < data.length; i++) {
       // console.log(data[i]);
-      document.querySelector(".images").innerHTML = `
-    <img src="${data[i].url}" alt="">
+      images.innerHTML = `
+    <img id="img" src="${data[i].url}" alt="">
   `;
     }
   })
   .catch((err) => {
     console.log(err);
-      document.querySelector(".images").style.display = "none";
-      document.querySelector(".error").innerHTML = `
+    images.style.display = "none";
+    document.querySelector(".error").innerHTML = `
       <h2>Error</h2>
       <h1>${err}</h1>
     `;
   });
+
+images.addEventListener("click", () => {
+  document.getElementById("img").style.objectFit = "cover";
+});
